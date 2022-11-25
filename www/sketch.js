@@ -1,22 +1,31 @@
-let song;
-function setup() {
-  song = loadSound(path, [successCallback], [errorCallback], [whileLoading])
-  createCanvas(720, 400);
-  background(255, 0, 0);
-}
+var wave;
+var playing = false;
 
-function mousePressed(){
-  if(song.isPlaying()){
-    song.stop();
-    background(255,0,0);
-  }
-  else{
-    song.play();
-    background(0,255,0);
-  }
+var button;
+function setup() {
+  createCanvas(640, 440);
+  wave = new p5.Oscillator();
+  wave.setType('sine');
+  //wave.start();
+  wave.freq(440);
+  wave.amp(0); //volume
+
+  button = createButton('play/pause');
+  button.mousePressed(toggle);
 }
 
 
 // function draw() {
 //   background(220);
 // }
+
+function toggle(){
+  if(!playing){
+    wave.amp(0.5,1);
+    playing=true;
+  }
+  else{
+    wave.amp(0,1);
+    playing = false;
+  }
+}
